@@ -1,6 +1,10 @@
 [
 	{
-		"caption" : "Blamer",
-		"command" : "blamer"
+		"caption" : "Show Blame",
+		"command" : "blame_set"
+	},
+	{
+		"caption" : "Clear Blame",
+		"command" : "blame_remove"
 	}
 ]

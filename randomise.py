@@ -10,3 +10,4 @@ class Randomise:
 		files = os.listdir(cache_path() + "\\Blamer\\")
 		index = random.randrange(0, len(files))
 		return files[index]
+		print(files[index])

@@ -1,4 +1,3 @@
-from os.path import basename
 import re
 import subprocess
 
