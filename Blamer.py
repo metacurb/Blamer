@@ -1,4 +1,5 @@
 import sublime, sublime_plugin
+from sublime import Region
 from .line import Line
 from .subversion import Subversion
 from .filecacher import FileCacher
