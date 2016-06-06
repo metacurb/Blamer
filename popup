@@ -1,0 +1,1 @@
+view.show_popup('<style>html,body{margin: 0; padding: 0;} a{display: block; text-decoration: none; margin: 0; padding: 5px; color: #000; background-color: #fafafa;} </style><a href="moo"><b>#3421:</b> This is a commit message. There are many just like it, but this one is mine.</a>')
