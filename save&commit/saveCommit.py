@@ -19,4 +19,3 @@ class save_commitCommand(sublime_plugin.TextCommand):
 			stderr = subprocess.PIPE,
 			stdin = subprocess.PIPE)
 		(result, error) = pr.communicate()
-		strings = ''
