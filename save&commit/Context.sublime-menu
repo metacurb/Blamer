@@ -1,0 +1,7 @@
+[
+	{  
+		"keys":  ["ctrl+alt+s"],
+		"caption" : "Save & Commit",
+		"command": "save_commit"
+	}
+]
