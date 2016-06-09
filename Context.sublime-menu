@@ -6,5 +6,9 @@
 	{
 		"caption" : "Clear Blame",
 		"command" : "blame_remove"
+	},
+	{
+		"caption" : "Save & Commit",
+		"command": "save_commit"
 	}
 ]
