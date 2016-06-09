@@ -3,6 +3,7 @@ from sublime import Region
 from .line import Line
 from .subversion import Subversion
 from .filecacher import FileCacher
+from .gutter import TestListener
 
 class blame_setCommand(sublime_plugin.TextCommand):
 	def run(self, edit):

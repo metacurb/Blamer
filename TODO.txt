@@ -1,0 +1,5 @@
+- Grab log for line on gutter click 
+- Attempt to move cached images to package folder, or auto-add to cache folder
+- Try to set up keybind via package installation rather than manually adding it
+- Gutter click only work when blame has been run
+- Clear Blame gets caught on random lines (Seems to be ones that are empty, or uncommited?)
