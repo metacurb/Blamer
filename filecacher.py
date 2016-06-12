@@ -19,4 +19,5 @@ class FileCacher:
 				self.image_dictionary[revision] = file
 
 	def get_image_for_line(self, line_number):
-		return self.image_dictionary[self.RevDictionary[line_number]]
+		if line_number in self.RevDictionary:
+			return self.image_dictionary[self.RevDictionary[line_number]]

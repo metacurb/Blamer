@@ -19,14 +19,15 @@ class Line:
 
 	def add_region(self):
 		"""Add the icon to the gutter"""
-		self.view.add_regions(
-			"Blamer_%s" % self.region.a,
-			[self.region],
-			"Blamer",
-			self.relative_icon_path(),
-			HIDDEN | PERSISTENT
-		)
+		if self.line_number in self.file_cacher.RevDictionary:
+			self.view.add_regions(
+				"Blamer_%s" % self.line_number,
+				[self.region],
+				"Blamer",
+				self.relative_icon_path(),
+				HIDDEN | PERSISTENT
+			)
 
 	def erase_region(self):
 		"""Remove icon from the gutter"""
-		self.view.erase_regions("Blamer_%s" % self.region.a)
+		self.view.erase_regions("Blamer_%s" % self.line_number)

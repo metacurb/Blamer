@@ -1,6 +1,9 @@
 import sublime
 import sublime_plugin
 import subprocess
+import math
+from .subversion import Subversion
+from .Blamer import file_cacher_dict
 
 def is_coord_on_gutter(view, x, y):
 	"""Determine if x and y coordinates are over the gutter.
@@ -28,22 +31,24 @@ def is_coord_on_gutter(view, x, y):
 
 	return True
 
+class GutterListener(sublime_plugin.EventListener):
 
-class TestListener(sublime_plugin.EventListener):
 	def on_text_command(self, view, cmd, args):
+		
 		if cmd == 'drag_select' and 'event' in args:
 			event = args['event']
-			print("single-clicked", args)
 			pt = view.window_to_text((event['x'], event['y']))
-			print("text pos:", pt)
+			line_pt = view.window_to_layout((event['x'], event['y']))
+			line_number = math.ceil(line_pt[1] / view.line_height())
 			on_gutter = is_coord_on_gutter(view, event['x'], event['y'])
-			print("is gutter", on_gutter)
-			print("button", event['button'])
-			if on_gutter is not False and event['button'] == 1:
-				print("showing popup")
 
-				# show asynchronously to not get the popup 
-				# cancelled by the following selection change
+			if on_gutter is not False and event['button'] == 1:
+				print("Line " + str(line_number))
+				file_cacher = file_cacher_dict.get(view.file_name())
+				print(file_cacher)
+				revision_number = file_cacher.RevDictionary.get(line_number)
+				print(revision_number)
+				Subversion.svn_log(self, str(revision_number))
 				def async_popup():
 					view.show_popup('<style>html,body{margin: 0; padding: 5px; background-color: #fafafa;} span{display: block;} a {display: block; padding: 5px 0;} </style><span><b>#13274 - beau.august@gforces.co.uk</b><span><a target="_blank" href="https://jira.netdirector.co.uk/browse/AFUFM-1">AFUFM-1</a> The code will pick up URLs and wrap them. If you write any text, it will sit underneath.</span>', on_navigate=self.navigate, location=pt)
 				sublime.set_timeout_async(async_popup)
