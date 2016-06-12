@@ -2,8 +2,10 @@ import sublime
 import sublime_plugin
 import subprocess
 import math
+import re
 from .subversion import Subversion
 from .Blamer import file_cacher_dict
+
 
 def is_coord_on_gutter(view, x, y):
 	"""Determine if x and y coordinates are over the gutter.
@@ -42,17 +44,27 @@ class GutterListener(sublime_plugin.EventListener):
 			line_number = math.ceil(line_pt[1] / view.line_height())
 			on_gutter = is_coord_on_gutter(view, event['x'], event['y'])
 
-			if on_gutter is not False and event['button'] == 1:
-				print("Line " + str(line_number))
-				file_cacher = file_cacher_dict.get(view.file_name())
-				print(file_cacher)
-				revision_number = file_cacher.RevDictionary.get(line_number)
-				print(revision_number)
-				Subversion.svn_log(self, str(revision_number))
-				def async_popup():
-					view.show_popup('<style>html,body{margin: 0; padding: 5px; background-color: #fafafa;} span{display: block;} a {display: block; padding: 5px 0;} </style><span><b>#13274 - beau.august@gforces.co.uk</b><span><a target="_blank" href="https://jira.netdirector.co.uk/browse/AFUFM-1">AFUFM-1</a> The code will pick up URLs and wrap them. If you write any text, it will sit underneath.</span>', on_navigate=self.navigate, location=pt)
-				sublime.set_timeout_async(async_popup)
 
+			if on_gutter is not False and event['button'] == 1:
+				svn = Subversion(view)
+				file_cacher = file_cacher_dict.get(view.file_name())
+				revision_number = file_cacher.RevDictionary.get(line_number - 1)
+				commit_info = svn.svn_log(str(revision_number))
+				def async_popup():
+					commit_message = "<br>".join(commit_info.commit_message)
+					clean_commit_message = re.sub(r"http\S+", "", commit_message)
+					url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', commit_message)
+					if url:
+						url = url[0]
+						url_text = url.rsplit('/', 1)[1]
+					else: 
+						url = '""'
+						url_text = ''
+					popup = """
+						<style>html,body{{margin: 0; padding: 5px; background-color: #fafafa;}} span{{display: block;}} a {{display: block; padding: 5px 0;}} </style>
+						<span><b>#{} - {}</b></span><a href={}>{}</a><span>{}</span>""".format(commit_info.revision, commit_info.committer, url, url_text, clean_commit_message)
+					view.show_popup(popup, on_navigate=self.navigate, location=pt)
+				sublime.set_timeout_async(async_popup)
 	def navigate(self, href):
 		script = 'start ' + href
 		pr = subprocess.Popen(script,

@@ -10,9 +10,5 @@
 	{
 		"caption" : "Save & Commit",
 		"command": "save_commit"
-	},
-	{
-		"caption" : "Test Log",
-		"command": "test_log"
 	}
 ]

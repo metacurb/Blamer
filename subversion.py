@@ -45,7 +45,7 @@ class Subversion:
 		(result, error) = pr.communicate()
 
 	def svn_log(self, revision):
-		script = 'svn log -r"' + revision + ' ' + view.file_name() + '"'
+		script = 'svn log -r' + revision + ' "' + self.view.file_name() + '"'
 		pr = subprocess.Popen(script,
 			shell = True,
 			stdout = subprocess.PIPE,
