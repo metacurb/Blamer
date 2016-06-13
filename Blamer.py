@@ -9,13 +9,9 @@ class blame_setCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		file_cacher = None
 		subversion = Subversion(self.view)
-
-		if not self.view.file_name() in file_cacher_dict:
-			file_cacher = FileCacher(subversion.svn_blame())
-			file_cacher_dict[self.view.file_name()] = file_cacher
-		else:
-			file_cacher = file_cacher_dict[self.view.file_name()]
-
+		file_cacher = FileCacher(subversion.svn_blame())
+		
+		file_cacher_dict[self.view.file_name()] = file_cacher
 		file_cacher.iterate_lines()
 
 		regions = self.view.lines(Region(0, self.view.size()))
@@ -31,6 +27,8 @@ class blame_removeCommand(sublime_plugin.TextCommand):
 		for idx, region in enumerate(regions):
 			line = Line(self.view, region, self.view.buffer_id(), None, idx)
 			line.erase_region()
+			
+		del file_cacher_dict[self.view.file_name()]
 
 class save_commitCommand(sublime_plugin.TextCommand):
 	def run(self, edit): 

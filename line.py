@@ -15,7 +15,7 @@ class Line:
 
 	def relative_icon_path(self):
 		"""The relative location of the color icon"""
-		return "Cache/Blamer/%s" % (self.color())
+		return "Packages/Blamer/icons/%s" % (self.color())
 
 	def add_region(self):
 		"""Add the icon to the gutter"""

@@ -1,2 +1,0 @@
-- Try to set up keybind and cache folder via package installation rather than manually adding it
-- Gutter click to only work when blame has been run
