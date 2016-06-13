@@ -1,0 +1,40 @@
+[
+	{
+		"caption": "Preferences",
+		"mnemonic": "n",
+		"id": "preferences",
+		"children":
+		[
+			{
+				"caption": "Package Settings",
+				"mnemonic": "P",
+				"id": "package-settings",
+				"children":
+				[
+					{
+						"caption": "Blamer",
+						"children":
+						[
+							{
+								"command": "open_file", "args":
+								{
+									"file": "${packages}/Blamer/Blamer.sublime-settings"
+								},
+								"caption": "Settings – Default"
+							},
+							{ "caption": "-" },
+							{ "caption": "-" },
+							{
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/Blamer/Default (Windows).sublime-keymap",
+								},
+								"caption": "Key Bindings – Default"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]

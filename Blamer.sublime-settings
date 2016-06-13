@@ -1,0 +1,11 @@
+{
+	// Change this folder name to match whatever
+	// you named your trunk when you checked it out
+	"root_folder": "Auto V10",
+
+	// Turning this on will automatically blame 
+	// files that are found inside the trunk.
+	// Leaving it off will mean you need to blame
+	// manually using the context menu 
+	"auto_blame": true
+}
