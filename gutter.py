@@ -55,10 +55,13 @@ class GutterListener(sublime_plugin.EventListener):
 					clean_commit_message = commit_message
 					urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', commit_message)
 					if urls:
+						urls = list(set(urls)) # Identifies and removes duplicates
 						for url in urls:
+							print(url)
 							url_text = url.rsplit('/', 1)[1]
 							a_tag = "<a href=" + url + ">" + url_text + "</a>"
 							clean_commit_message = clean_commit_message.replace(url, a_tag)
+							print(clean_commit_message)
 					else: 
 						urls = '""'
 						url_text = ''
