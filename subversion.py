@@ -31,11 +31,16 @@ class Subversion:
 
 		return revision_dictionary
 
-	def svn_commit(self):
+	def svn_commit(self, is_gmme):
 		self.view.run_command("save")
 		current_file_path = self.view.file_name()
-		split_file_path = current_file_path.split(os.sep)
-		parent_folder = str.join(os.sep, split_file_path[:split_file_path.index("less")])
+
+		if is_gmme:
+			parent_folder = current_file_path.split("GMME")[0] + "GMME"	
+		else: 
+			split_file_path = current_file_path.split(os.sep)
+			parent_folder = str.join(os.sep, split_file_path[:split_file_path.index("less")])
+					
 		script = 'START TortoiseProc.exe /command:commit /path:"' + parent_folder + '"'
 		pr = subprocess.Popen(script,
 			shell = True,

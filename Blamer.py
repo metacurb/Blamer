@@ -5,16 +5,15 @@ from .subversion import Subversion
 from .filecacher import FileCacher
 from .config import file_cacher_dict
 
+
 class auto_blameCommand(sublime_plugin.EventListener):
 	def on_load(self, view):
 		blamer_settings = sublime.load_settings("Blamer.sublime-settings")
+		project_root = blamer_settings.get("root_folder")
 		blame_format = blamer_settings.get("auto_blame_format")
 		auto_blame = blamer_settings.get("auto_blame")
-		blame_root = blamer_settings.get("root_folder")
 		current_file = view.file_name()
-
-		if current_file.find(blame_root) != -1:
-			root_exists = True
+		root_exists = current_file.find(project_root) != -1
 
 		if blame_format == ".*":
 			correct_format = True
@@ -53,5 +52,9 @@ class blame_removeCommand(sublime_plugin.TextCommand):
 class save_commitCommand(sublime_plugin.TextCommand):
 	def run(self, edit): 
 		subversion = Subversion(self.view)	
+		file_path = self.view.file_name()
 		self.view.run_command("save")
-		subversion.svn_commit()
+		is_gmme = False
+		if "GMME" in file_path:
+			is_gmme = True
+		subversion.svn_commit(is_gmme)

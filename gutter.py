@@ -51,18 +51,20 @@ class GutterListener(sublime_plugin.EventListener):
 				revision_number = file_cacher.RevDictionary.get(line_number - 1)
 				commit_info = svn.svn_log(str(revision_number))
 				def async_popup():
-					commit_message = "<br>".join(commit_info.commit_message)
-					clean_commit_message = re.sub(r"http\S+", "", commit_message)
-					url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', commit_message)
-					if url:
-						url = url[0]
-						url_text = url.rsplit('/', 1)[1]
+					commit_message = " <br>".join(commit_info.commit_message)
+					clean_commit_message = commit_message
+					urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', commit_message)
+					if urls:
+						for url in urls:
+							url_text = url.rsplit('/', 1)[1]
+							a_tag = "<a href=" + url + ">" + url_text + "</a>"
+							clean_commit_message = clean_commit_message.replace(url, a_tag)
 					else: 
-						url = '""'
+						urls = '""'
 						url_text = ''
 					popup = """
 						<style>html,body{{margin: 0; padding: 5px; background-color: #fafafa;}} span{{display: block;}} a {{display: block; padding: 5px 0;}} </style>
-						<span><b>#{} - {}</b></span><a href={}>{}</a><span>{}</span>""".format(commit_info.revision, commit_info.committer, url, url_text, clean_commit_message)
+						<span><b>#{} - {}</b></span><span>{}</span>""".format(commit_info.revision, commit_info.committer, clean_commit_message)
 					view.show_popup(popup, on_navigate=self.navigate, location=pt)
 				sublime.set_timeout_async(async_popup)
 	def navigate(self, href):
