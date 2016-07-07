@@ -2,5 +2,9 @@
 	{
 		"keys": ["ctrl+alt+s"], 
 		"command": "save_commit"
-	} 
+	},
+	{
+		"keys": ["ctrl+alt+b"], 
+		"command": "blame_set"
+	}
 ]
