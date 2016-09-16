@@ -4,10 +4,10 @@ from .line import Line
 from .subversion import Subversion
 from .filecacher import FileCacher
 from .config import file_cacher_dict
-
+import time 
 
 class auto_blameCommand(sublime_plugin.EventListener):
-	def on_load(self, view):
+	def on_load_async(self, view):
 		blamer_settings = sublime.load_settings("Blamer.sublime-settings")
 		project_root = blamer_settings.get("root_folder")
 		blame_format = blamer_settings.get("auto_blame_format")
@@ -21,6 +21,7 @@ class auto_blameCommand(sublime_plugin.EventListener):
 			correct_format = current_file.endswith(blame_format)
 
 		if root_exists and auto_blame and correct_format:
+			time.sleep(0.5)
 			view.run_command("blame_set")
 
 
