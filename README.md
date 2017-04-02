@@ -21,7 +21,7 @@ Once Sublime Text is open, navigate to Preferences > Package Settings > Blamer >
 
 * `root_folder`: You need to change this to the name of your V10 folder (case sensitive)
 * `auto_blame`: Set this to **true** or **false**. If true, files will auto-blame as soon as they're opened.
-* `auto-blame-format`: Set this to the file format that you want to blame. Set it to ***** to blame ALL file-types.
+* `auto_blame_format`: Set this to the file format that you want to blame. Set it to ***** to blame ALL file-types.
 
 Once you have adjusted your preferences, you're all set.
 
