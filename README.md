@@ -12,7 +12,7 @@ Coloured discs are placed against every line in a file. Any lines from the same 
 
 * Clone project 
 * Copy folder to `C:\Users\YOUR NAME\AppData\Roaming\Sublime Text 3\Packages`, where YOUR NAME is replaced with your Users' name
-* Inside the Blamer folder is another folder called Blamer. Copy that folder to `C:\Users\YOUR NAMEAppData\Local\Sublime Text 3\Cache`, following the same principle above. 
+* Inside the Blamer folder is another folder called Blamer. Copy that folder to `C:\Users\YOUR NAME\AppData\Local\Sublime Text 3\Cache`, following the same principle above. 
 * Restart Sublime.
 
 ### How do I use it? ###
