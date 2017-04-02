@@ -17,8 +17,7 @@ Coloured discs are placed against every line in a file. Any lines from the same 
 
 ### How do I use it? ###
 
-Once Sublime Text is open, navigate to Preferences > Package Settings > Blamer > Settings - Default
-In here you will find 3 options -
+Once Sublime Text is open, navigate to Preferences > Package Settings > Blamer > Settings - Default. In here you will find 3 options -
 
 * `root_folder`: You need to change this to the name of your V10 folder (case sensitive)
 * `auto_blame`: Set this to **true** or **false**. If true, files will auto-blame as soon as they're opened.
