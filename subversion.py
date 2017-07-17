@@ -12,7 +12,7 @@ class Subversion:
 	def svn_blame(self): 	
 		revision_dictionary = {}
 
-		script = 'svn blame -x --ignore-eol-style "' + self.view.file_name() + '"'
+		script = 'svn blame -x "-w --ignore-eol-style" "' + self.view.file_name() + '"'
 		pr = subprocess.Popen(script,
 			shell = True,
 			stdout = subprocess.PIPE,
