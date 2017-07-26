@@ -66,7 +66,7 @@ class GutterListener(sublime_plugin.EventListener):
 						urls = '""'
 						url_text = ''
 					popup = """
-						<style>html,body{{margin: 0; padding: 5px; background-color: #fafafa;}} span{{display: block;}} a {{display: block; padding: 5px 0;}} </style>
+						<style>html,body{{margin: 0; padding: 5px;}} span{{display: block;}} a {{display: block; padding: 5px 0;}} </style>
 						<span><b>#{} - {}</b></span><span><b>{}</b></span><br><span>{}</span>""".format(commit_info.revision, commit_info.committer, commit_info.commit_date, clean_commit_message)
 					view.show_popup(popup, on_navigate=self.navigate, location=pt)
 				sublime.set_timeout_async(async_popup)

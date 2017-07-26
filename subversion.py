@@ -83,7 +83,7 @@ class Subversion:
 
 		top_left = self.view.layout_to_text((0.0, 0.0))
 		popup = """
-			<style>html,body{{margin: 0; padding: 5px; background-color: #fafafa;}} span{{display: block;}}</style>
+			<style>html,body{{margin: 0; padding: 5px;}} span{{display: block;}}</style>
 			<span><h1>Project Updated</h1></span><span>{}</span>""".format(parent_name)
 		self.view.show_popup(popup, location=top_left)
 
