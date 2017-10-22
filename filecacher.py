@@ -7,6 +7,9 @@ class FileCacher:
 		self.image_dictionary = {}
 
 	def iterate_lines(self):
+		if self.RevDictionary == None:
+			return None
+
 		randomise = Randomise()
 		for line, revision in self.RevDictionary.items():
 			

@@ -19,6 +19,8 @@ class Line:
 
 	def add_region(self):
 		"""Add the icon to the gutter"""
+		if self.file_cacher.RevDictionary == None:
+			return
 		if self.line_number in self.file_cacher.RevDictionary:
 			self.view.add_regions(
 				"Blamer_%s" % self.line_number,

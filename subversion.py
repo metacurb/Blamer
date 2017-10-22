@@ -19,8 +19,12 @@ class Subversion:
 			stderr = subprocess.PIPE,
 			stdin = subprocess.PIPE)
 		(result, error) = pr.communicate()
-		lines = result.splitlines()
 
+		if 'E155007' in error.decode("utf-8"):
+			sublime.status_message('SVN Gutter - File is not a working copy')
+			return
+
+		lines = result.splitlines()
 		for idx, line in enumerate(lines):
 			line = line.decode("utf-8")
 			search = re.search("\d", line)
@@ -30,24 +34,6 @@ class Subversion:
 				revision_dictionary[idx] = int(line_number_string)
 
 		return revision_dictionary
-
-	def svn_commit(self, is_gmme):
-		self.view.run_command("save")
-		current_file_path = self.view.file_name()
-
-		if is_gmme:
-			parent_folder = current_file_path.split("GMME")[0] + "GMME"	
-		else: 
-			split_file_path = current_file_path.split(os.sep)
-			parent_folder = str.join(os.sep, split_file_path[:split_file_path.index("less")])
-					
-		script = 'START TortoiseProc.exe /command:commit /path:"' + parent_folder + '"'
-		pr = subprocess.Popen(script,
-			shell = True,
-			stdout = subprocess.PIPE,
-			stderr = subprocess.PIPE,
-			stdin = subprocess.PIPE)
-		(result, error) = pr.communicate()
 
 	def svn_log(self, revision):
 		script = 'svn log -r' + revision + ' "' + self.view.file_name() + '"'
